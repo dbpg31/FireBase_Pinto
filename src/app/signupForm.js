@@ -1,5 +1,6 @@
 import {createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js"
 import { auth } from "./firebase.js"
+import { showMessage } from './showMessage.js'
 
 const signupForm = document.querySelector('#signup-form')
 
@@ -19,31 +20,17 @@ signupForm.addEventListener('submit', async (e) => {
         const modal = bootstrap.Modal.getInstance(signupModal)
         modal.hide()
 
-            Toastify({
-                text: "Welcome",
-                duration: 3000,
-                destination: "https://github.com/apvarun/toastify-js",
-                newWindow: true,
-                close: true,
-                gravity: "botton", // `top` or `bottom`
-                position: "right", // `left`, `center` or `right`
-                stopOnFocus: true, // Prevents dismissing of toast on hover
-                style: {
-                background: 'green',
-                },
-                onClick: function(){} // Callback after click
-            }).showToast();
-
+           showMessage("welcome " + userCredentials.user.email)
 
      } catch (error) {        
-        if (error.code === 'auth/email-already-in-use'){
-            alert ('Email already in use')
+        if (error.code === 'auth/email-already-in-use') {
+            showMessage("Email already in use", "error")
         } else if (error.code === 'auth/invalid-email') {
-            alert('Invalid email')
+            showMessage("Invalid email", "error")
         } else if (error.code === 'auth/weak-password') {
-            alert ('password is too weak')
+            showMessage("password is too weak", "error")
         } else if (error.code) {
-            alert ('Something went wrong')
+            showMessage(error.message, "error")
         }
 
     }
