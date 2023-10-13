@@ -18,7 +18,24 @@ signupForm.addEventListener('submit', async (e) => {
         const signupModal = document.querySelector('#signupModal')
         const modal = bootstrap.Modal.getInstance(signupModal)
         modal.hide()
-    } catch (error) {        
+
+            Toastify({
+                text: "Welcome",
+                duration: 3000,
+                destination: "https://github.com/apvarun/toastify-js",
+                newWindow: true,
+                close: true,
+                gravity: "botton", // `top` or `bottom`
+                position: "right", // `left`, `center` or `right`
+                stopOnFocus: true, // Prevents dismissing of toast on hover
+                style: {
+                background: 'green',
+                },
+                onClick: function(){} // Callback after click
+            }).showToast();
+
+
+     } catch (error) {        
         if (error.code === 'auth/email-already-in-use'){
             alert ('Email already in use')
         } else if (error.code === 'auth/invalid-email') {
